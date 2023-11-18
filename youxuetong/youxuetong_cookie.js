@@ -9,11 +9,11 @@ if (cookieVal) {
   zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
   const jsession = getCookieValue(cookieVal, JWSESSIONKey);
   const jsessionid = getCookieValue(cookieVal, JSESSIONIDKey);
-  if (zhouzhou.setdata(jsession, JWSESSIONKey);) {
+  if (zhouzhou.setdata(jsession, JWSESSIONKey)) {
     zhouzhou.msg(`${cookieName}`, 'JWSESSION获取成功', '');
     zhouzhou.log(`[${cookieName}] JWSESSION获取成功, JWSESSION: ${jsession}`);
   }
-  if (zhouzhou.setdata(jsessionid, JSESSIONIDKey);) {
+  if (zhouzhou.setdata(jsessionid, JSESSIONIDKey)) {
     zhouzhou.msg(`${cookieName}`, 'JSESSIONID获取成功', '');
     zhouzhou.log(`[${cookieName}] JSESSIONID获取成功, JSESSIONID: ${jsessionid}`);
   }
