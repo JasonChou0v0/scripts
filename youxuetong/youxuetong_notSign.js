@@ -36,9 +36,10 @@ function getSignList() {
     } else {
       try {
         const result = JSON.parse(data);
-        $.log(JSON.stringify(result, null, 2));/////////////
+        //调试
+        $.log(JSON.stringify(result, null, 2));
         const firstEntry = result.data[0];
-        $.log(JSON.stringify(firstEntry, null, 2));///////////////
+        $.log(JSON.stringify(firstEntry, null, 2));
         if (firstEntry) {
           const id = firstEntry.id;
           const signId = firstEntry.signId;
