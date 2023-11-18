@@ -2,10 +2,12 @@ const cookieName = 'youxuetong'
 const cookieKey = 'zhouzhou_cookie_youxuetong'
 const zhouzhou = init()
 const cookieVal = $request.headers['Cookie']
+zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${completeCookie}`);
 if (cookieVal) {
   const jwsession = getCookieValue(cookieVal, 'JWSESSION');
+  zhouzhou.log(`JWSESSION获取Cookie: 成功, cookie: ${jwsession}`);
   const jsessionid = getCookieValue(cookieVal, 'JSESSIONID');
-
+  zhouzhou.log(`jsessionid获取Cookie: 成功, cookie: ${jsessionid}`);
   if (jwsession && jsessionid) {
     const completeCookie = `JWSESSION=${jwsession}; JSESSIONID=${jsessionid}`;
     zhouzhou.setdata(completeCookie, cookieKey);
