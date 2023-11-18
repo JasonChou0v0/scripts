@@ -87,7 +87,6 @@ function notSignPeoples(signId) {
     'Cookie': `JWSESSION=${JWSESSION}; JWSESSION=${JWSESSION}`,
     'Sec-Fetch-Dest': 'empty',
   };
-  // 调试
   // $.log(JSON.stringify(headers, null, 2));
   // $.log(`JWSESSION: ${JWSESSION}, signId: ${signId}`);
   // Make GET request
