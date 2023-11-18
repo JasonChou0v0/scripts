@@ -4,8 +4,8 @@ const zhouzhou = init()
 const cookieVal = $request.headers['Cookie']
 if (cookieVal) {
   if (zhouzhou.setdata(cookieVal, cookieKey)) {
-    zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '')
-    zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`)
+    zhouzhou.msg(`${cookieName}`, '鑾峰彇Cookie: 鎴愬姛', '')
+    zhouzhou.log(`[${cookieName}] 鑾峰彇Cookie: 鎴愬姛, cookie: ${cookieVal}`)
   }
 }
 function init() {
