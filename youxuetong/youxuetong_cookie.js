@@ -6,9 +6,9 @@ const zhouzhou = init()
 const cookieVal = $request.headers['Cookie']
 //zhouzhou.log(JSON.stringify(headers, null, 2)); 可以获取整个headers，进行格式化输出
 if (cookieVal) {
-  zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
+  // zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
   const jsession = getCookieValue(cookieVal, JWSESSIONKey);
-  const jsessionid = getCookieValue(cookieVal, JSESSIONIDKey);
+  // const jsessionid = getCookieValue(cookieVal, JSESSIONIDKey);
   if (zhouzhou.setdata(jsession, JWSESSIONKey)) {
     zhouzhou.msg(`${cookieName}`, 'JWSESSION获取成功', '');
     zhouzhou.log(`[${cookieName}] JWSESSION获取成功, JWSESSION: ${jsession}`);
