@@ -2,8 +2,9 @@ const cookieName = 'youxuetong'
 const cookieKey = 'zhouzhou_cookie_youxuetong'
 const zhouzhou = init()
 const cookieVal = $request.headers
-zhouzhou.log(JSON.stringify(headers, null, 2));
+zhouzhou.log(JSON.stringify(cookieVal, null, 2));
 if (cookieVal) {
+  zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
   const jsessionid = getCookieValue(cookieVal, 'JSESSIONID');
   if (jsessionid) {
     zhouzhou.setdata(completeCookie, cookieKey);
