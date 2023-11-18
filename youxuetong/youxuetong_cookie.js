@@ -2,7 +2,7 @@ const cookieName = 'youxuetong'
 const cookieKey = 'zhouzhou_cookie_youxuetong'
 const zhouzhou = init()
 const cookieVal = $request.headers['Cookie']
-zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${completeCookie}`);
+zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`);
 if (cookieVal) {
   const jwsession = getCookieValue(cookieVal, 'JWSESSION');
   zhouzhou.log(`JWSESSION获取Cookie: 成功, cookie: ${jwsession}`);
