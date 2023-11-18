@@ -5,21 +5,16 @@ const cookieVal = $request.headers['Cookie']
 zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
 zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`);
 if (cookieVal) {
-  const jwsession = getCookieValue(cookieVal, 'JWSESSION');
-  zhouzhou.msg(`${cookieName}`, 'JWSESSION获取成功', '');
-  zhouzhou.log(`JWSESSION获取成功, JWSESSION: ${jwsession}`);
   const jsessionid = getCookieValue(cookieVal, 'JSESSIONID');
-  zhouzhou.msg(`${cookieName}`, 'JSESSIONID获取成功', '');
-  zhouzhou.log(`JSESSIONID获取成功, JSESSIONID: ${jsessionid}`);
-  if (jwsession && jsessionid) {
-    const completeCookie = `JWSESSION=${jwsession}; JSESSIONID=${jsessionid}`;
+  if (jsessionid) {
     zhouzhou.setdata(completeCookie, cookieKey);
-    zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
-    zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${completeCookie}`);
+    zhouzhou.msg(`${cookieName}`, 'JSESSIONID获取Cookie: 成功', '');
+    zhouzhou.log(`[${cookieName}] 获取JSESSIONID成功, JSESSIONID: ${jsessionid}`);
   }
 }
 function getCookieValue(cookieString, cookieKey) {
-  const matches = cookieString.match(new RegExp(`${cookieKey}=([^;]+)`));
+  const regex = new RegExp(`${cookieKey}=([^;]+)`);
+  const matches = cookieString.match(regex);
   return matches ? matches[1] : null;
 }
 function init() {
