@@ -2,11 +2,14 @@ const cookieName = 'youxuetong'
 const cookieKey = 'zhouzhou_cookie_youxuetong'
 const zhouzhou = init()
 const cookieVal = $request.headers['Cookie']
+zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
 zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`);
 if (cookieVal) {
   const jwsession = getCookieValue(cookieVal, 'JWSESSION');
+  zhouzhou.msg(`${cookieName}`, '获取jwsession: 成功', '');
   zhouzhou.log(`JWSESSION获取Cookie: 成功, cookie: ${jwsession}`);
   const jsessionid = getCookieValue(cookieVal, 'JSESSIONID');
+  zhouzhou.msg(`${cookieName}`, '获取jsessionid: 成功', '');
   zhouzhou.log(`jsessionid获取Cookie: 成功, cookie: ${jsessionid}`);
   if (jwsession && jsessionid) {
     const completeCookie = `JWSESSION=${jwsession}; JSESSIONID=${jsessionid}`;
