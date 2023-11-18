@@ -3,10 +3,19 @@ const cookieKey = 'zhouzhou_cookie_youxuetong'
 const zhouzhou = init()
 const cookieVal = $request.headers['Cookie']
 if (cookieVal) {
-  if (zhouzhou.setdata(cookieVal, cookieKey)) {
-    zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '')
-    zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`)
+  const jwsession = getCookieValue(cookieVal, 'JWSESSION');
+  const jsessionid = getCookieValue(cookieVal, 'JSESSIONID');
+
+  if (jwsession && jsessionid) {
+    const completeCookie = `JWSESSION=${jwsession}; JSESSIONID=${jsessionid}`;
+    zhouzhou.setdata(completeCookie, cookieKey);
+    zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
+    zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${completeCookie}`);
   }
+}
+function getCookieValue(cookieString, cookieKey) {
+  const matches = cookieString.match(new RegExp(`${cookieKey}=([^;]+)`));
+  return matches ? matches[1] : null;
 }
 function init() {
   isSurge = () => {
