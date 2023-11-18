@@ -1,9 +1,8 @@
 const cookieName = 'youxuetong'
 const cookieKey = 'zhouzhou_cookie_youxuetong'
 const zhouzhou = init()
-const cookieVal = $request.headers['Cookie']
-zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
-zhouzhou.log(`[${cookieName}] 获取Cookie: 成功, cookie: ${cookieVal}`);
+const cookieVal = $request.headers
+zhouzhou.log(JSON.stringify(headers, null, 2));
 if (cookieVal) {
   const jsessionid = getCookieValue(cookieVal, 'JSESSIONID');
   if (jsessionid) {
