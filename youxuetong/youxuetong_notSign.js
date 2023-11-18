@@ -98,7 +98,7 @@ function notSignPeoples(signId) {
         $.logErr(e);
       }
     }
-    $.done(); 
+   // $.done(); 
   });
 }
 
