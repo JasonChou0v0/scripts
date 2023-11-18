@@ -1,17 +1,19 @@
-const cookieName = 'youxuetong'
+const cookieName = '油学通'
 const cookieKey = 'zhouzhou_cookie_youxuetong'
+const JWSESSIONKey = 'JWSESSION'
+const JSESSIONIDKey = 'JSESSIONID'
 const zhouzhou = init()
 const cookieVal = $request.headers['Cookie']
 //zhouzhou.log(JSON.stringify(headers, null, 2)); 可以获取整个headers，进行格式化输出
 if (cookieVal) {
   zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
-  const jsession = getCookieValue(cookieVal, 'JWSESSION');
-  const jsessionid = getCookieValue(cookieVal, 'JSESSIONID');
-  if (zhouzhou.setdata(jsession, JWSESSION);) {
+  const jsession = getCookieValue(cookieVal, JWSESSIONKey);
+  const jsessionid = getCookieValue(cookieVal, JSESSIONIDKey);
+  if (zhouzhou.setdata(jsession, JWSESSIONKey);) {
     zhouzhou.msg(`${cookieName}`, 'JWSESSION获取成功', '');
     zhouzhou.log(`[${cookieName}] JWSESSION获取成功, JWSESSION: ${jsession}`);
   }
-  if (zhouzhou.setdata(jsessionid, JSESSIONID);) {
+  if (zhouzhou.setdata(jsessionid, JSESSIONIDKey);) {
     zhouzhou.msg(`${cookieName}`, 'JSESSIONID获取成功', '');
     zhouzhou.log(`[${cookieName}] JSESSIONID获取成功, JSESSIONID: ${jsessionid}`);
   }
