@@ -13,10 +13,10 @@ if (cookieVal) {
     zhouzhou.msg(`${cookieName}`, 'JWSESSION获取成功', '');
     zhouzhou.log(`[${cookieName}] JWSESSION获取成功, JWSESSION: ${jsession}`);
   }
-  if (zhouzhou.setdata(jsessionid, JSESSIONIDKey)) {
-    zhouzhou.msg(`${cookieName}`, 'JSESSIONID获取成功', '');
-    zhouzhou.log(`[${cookieName}] JSESSIONID获取成功, JSESSIONID: ${jsessionid}`);
-  }
+  // if (zhouzhou.setdata(jsessionid, JSESSIONIDKey)) {
+  //   zhouzhou.msg(`${cookieName}`, 'JSESSIONID获取成功', '');
+  //   zhouzhou.log(`[${cookieName}] JSESSIONID获取成功, JSESSIONID: ${jsessionid}`);
+  // }
 }
 function getCookieValue(cookieString, cookieKey) {
   const regex = new RegExp(`${cookieKey}=([^;]+)`);
