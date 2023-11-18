@@ -92,7 +92,7 @@ function notSignPeoples(signId) {
     } else {
       try {
         const result = JSON.parse(data);
-        $.log(result);
+        $.log(JSON.stringify(result, null, 2));
         // Process the response data as needed
       } catch (e) {
         $.logErr(e);
