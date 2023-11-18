@@ -97,15 +97,17 @@ function doSign(id, signId) {
     } else {
       try {
         const result = JSON.parse(data);
-        $.log(result);
-
+        $.log(JSON.stringify(result, null, 2));
         // Check if sign-in was successful
         if (result.code === 0 && result.data === '签到成功') {
           // Send success message
           $.msg('签到成功', '签到成功！');
-        } else {
+        }else if (result.code === 1 && result.data === '签到已结束') {
+          // Send end message
+          $.msg('签到过期', '签到过期！');
+        }else {
           // Log other responses for debugging
-          $.log('Sign-in unsuccessful:', result);
+          $.log('签到失败！', JSON.stringify(result, null, 2));
         }
       } catch (e) {
         $.logErr(e);
