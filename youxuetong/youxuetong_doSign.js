@@ -107,6 +107,7 @@ function doSign(id, signId) {
         }else {
           // Log other responses for debugging
           $.log('签到失败！', JSON.stringify(result, null, 2));
+          $.msg('签到失败！', JSON.stringify(result, null, 2));
         }
       } catch (e) {
         $.logErr(e);
