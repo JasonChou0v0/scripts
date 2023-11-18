@@ -92,15 +92,15 @@ function notSignPeoples(signId) {
   // $.log(`JWSESSION: ${JWSESSION}, signId: ${signId}`);
   // Make GET request
 $.get({ url, headers, qs: params }, (error, response, data) => {
-  $.log('Request URL:', url);
-  $.log('Request Headers:', JSON.stringify(headers, null, 2));
-  $.log('Request Params:', JSON.stringify(params, null, 2));
+  // $.log('Request URL:', url);
+  // $.log('Request Headers:', JSON.stringify(headers, null, 2));
+  // $.log('Request Params:', JSON.stringify(params, null, 2));
   if (error) {
     $.logErr('Error:', error);
     $.done();
   } else {
-    $.log('Response Status Code:', JSON.stringify(response.statusCode, null, 2));
-    $.log('Response Headers:', JSON.stringify(response.headers, null, 2));
+    // $.log('Response Status Code:', JSON.stringify(response.statusCode, null, 2));
+    // $.log('Response Headers:', JSON.stringify(response.headers, null, 2));
     try {
       const result = JSON.parse(data);
       $.log('Response Data:', JSON.stringify(result, null, 2));
