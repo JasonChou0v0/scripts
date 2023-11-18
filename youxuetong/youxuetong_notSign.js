@@ -88,24 +88,29 @@ function notSignPeoples(signId) {
     'Sec-Fetch-Dest': 'empty',
   };
   // 调试
-  $.log(JSON.stringify(headers, null, 2));
-  $.log(`JWSESSION: ${JWSESSION}, signId: ${signId}`);
+  // $.log(JSON.stringify(headers, null, 2));
+  // $.log(`JWSESSION: ${JWSESSION}, signId: ${signId}`);
   // Make GET request
-  $.get({ url, headers, qs: params }, (error, response, data) => {
-    if (error) {
-      $.logErr(error);
-      $.done();
-    } else {
-      try {
-        const result = JSON.parse(data);
-        $.log(JSON.stringify(result, null, 2));
-        // Process the response data as needed
-      } catch (e) {
-        $.logErr(e);
-      }
+$.get({ url, headers, qs: params }, (error, response, data) => {
+  $.log('Request URL:', url);
+  $.log('Request Headers:', headers);
+  $.log('Request Params:', params);
+  if (error) {
+    $.logErr('Error:', error);
+    $.done();
+  } else {
+    $.log('Response Status Code:', response.statusCode);
+    $.log('Response Headers:', response.headers);
+    try {
+      const result = JSON.parse(data);
+      $.log('Response Data:', JSON.stringify(result, null, 2));
+      // Process the response data as needed
+    } catch (e) {
+      $.logErr('Error parsing response data:', e);
     }
-    $.done(); 
-  });
+  }
+  $.done();
+});
 }
 
 // Call the function
