@@ -54,20 +54,6 @@ function getSignList() {
 }
 
 function doSign(id, signId) {
-  // URL
-  const url = `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=17&signId=${signId}`;
-
-  // Headers
-  const headers = {
-    'Host': 'gwxg.xsyu.edu.cn',
-    'token': '',
-    'content-type': 'application/json',
-    'JWSESSION': JWSESSION,
-    'Accept-Encoding': 'gzip,compress,br,deflate',
-    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.43(0x18002b2c) NetType/4G Language/zh_CN',
-    'Referer': 'https://servicewechat.com/wx9f2d7ce09eafe921/2/page-frame.html',
-  };
-
   // Request body
   const body = {
     'inArea': 1,
@@ -87,8 +73,22 @@ function doSign(id, signId) {
     'township': '五竹街道'
   };
 
+  const url = {
+    url: `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=17&signId=${signId}`,
+    headers: {
+        'Host': 'gwxg.xsyu.edu.cn',
+        'token': '',
+        'content-type': 'application/json',
+        'JWSESSION': JWSESSION,
+        'Accept-Encoding': 'gzip,compress,br,deflate',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.43(0x18002b2c) NetType/4G Language/zh_CN',
+        'Referer': 'https://servicewechat.com/wx9f2d7ce09eafe921/2/page-frame.html',
+      },
+    body: $.queryStr(body)
+  }
+
   // Make POST request
-  $.post({ url, headers, body: JSON.stringify(body) }, (error, response, data) => {
+  $.post( url, (error, resp, data) => {
     if (error) {
       $.logErr(error);
     } else {
