@@ -9,7 +9,6 @@ function getSignList() {
     page: 1,
     size: 10
   };
-
   // Headers
   const headers = {
     'Host': 'gwxg.xsyu.edu.cn',
@@ -41,7 +40,7 @@ function getSignList() {
           const signId = firstEntry.signId;
 
           $.log(`id: ${id}, signId: ${signId}`);
-          doSign(id, signId);
+          doSign(id,signId);
         } else {
           $.log('No entries found in the response.');
           $.done();
@@ -53,26 +52,7 @@ function getSignList() {
   });
 }
 
-function doSign(id, signId) {
-  // Request body
-  const body = {
-    inArea: 1,
-    longitude: 108.65595947265625,
-    province: '陕西省',
-    latitude: 34.099886881510415,
-    streetcode: '5112855303129561017',
-    street: '西北销售路',
-    areaJSON: '{\"type\":0,\"circle\":{\"latitude\":\"34.1031877191\",\"longitude\":\"108.6537766457\",\"radius\":1050},\"id\":\"170002\",\"name\":\"鄠邑校区\"}',
-    citycode: '156610100',
-    city: '西安市',
-    nationcode: '156',
-    adcode: '610118',
-    district: '鄠邑区',
-    country: '中国',
-    towncode: '610118003',
-    township: '五竹街道'
-  };
-
+function doSign(id,signId) {
   const url = {
     url: `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=17&signId=${signId}`,
     headers: {
@@ -86,7 +66,35 @@ function doSign(id, signId) {
       },
     body: $.queryStr(body)
   }
-
+  // Request body
+  const body = {
+    inArea: 1,
+    longitude: 108.65595947265625,
+    province: '陕西省',
+    latitude: 34.099886881510415,
+    streetcode: '5112855303129561017',
+    street: '西北销售路',
+    areaJSON: $.queryStr(area),
+    citycode: '156610100',
+    city: '西安市',
+    nationcode: '156',
+    adcode: '610118',
+    district: '鄠邑区',
+    country: '中国',
+    towncode: '610118003',
+    township: '五竹街道'
+  }
+  const area = {
+    type: 0,
+    circle: $.queryStr(circle),
+    id: '170002',
+    name: '鄠邑校区'
+  }
+  const circle = {
+    latitude: '34.1031877191',
+    longitude: '108.6537766457',
+    radius: 1050
+  }
   // Make POST request
   $.post( url, (error, resp, data) => {
     if (error) {
