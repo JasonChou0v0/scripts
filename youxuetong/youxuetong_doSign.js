@@ -60,8 +60,6 @@ function doSign(id, signId) {
   // Headers
   const headers = {
     'Host': 'gwxg.xsyu.edu.cn',
-    'Connection': 'keep-alive',
-    'Content-Length': '491',
     'token': '',
     'content-type': 'application/json',
     'JWSESSION': JWSESSION,
