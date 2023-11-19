@@ -108,46 +108,6 @@ function doSign(id, signId) {
     });
 }
 
-
-function doSign(id,signId) {
-  // URL
-  const url = `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=17&signId=${signId}`;
-  // Headers
-  const headers = {
-    
-  };
-  // Request body
-  const body = {
-    
-  };
-  // Make POST request
-  $.post({ url, headers, body: JSON.stringify(body) }, (error, response, data) => {
-    if (error) {
-      $.logErr(error);
-    } else {
-      try {
-        const result = JSON.parse(data);
-        // $.log(JSON.stringify(result, null, 2));
-        // Check if sign-in was successful
-        if (result.code === 0 && result.data === '签到成功') {
-          // Send success message
-          $.msg('签到成功', '签到成功！');
-        }else if (result.code === 1 && result.data === '签到已结束') {
-          // Send end message
-          $.msg('签到过期', '签到过期！');
-        }else {
-          // Log other responses for debugging
-          $.log('签到失败！', JSON.stringify(result, null, 2));
-          $.msg('签到失败！', JSON.stringify(result, null, 2));
-        }
-      } catch (e) {
-        $.logErr(e);
-      }
-    }
-    $.done();
-  });
-}
-
 // Call the function
 getSignList();
 
