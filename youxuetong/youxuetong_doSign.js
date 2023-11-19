@@ -52,12 +52,11 @@ function getSignList() {
   });
 }
 
-function doSign(id,signId) {
-  // URL
-  const url = `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=17&signId=${signId}`;
-  // Headers
-  const headers = {
-    'Host': 'gwxg.xsyu.edu.cn',
+function doSign(id, signId) {
+    const url = `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=17&signId=${signId}`;
+
+    const headers = new Headers({
+        'Host': 'gwxg.xsyu.edu.cn',
     'Connection': 'keep-alive',
     'Content-Length': '491',
     'token': '',
@@ -65,17 +64,17 @@ function doSign(id,signId) {
     'JWSESSION': JWSESSION,
     'Accept-Encoding': 'gzip,compress,br,deflate',
     'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.43(0x18002b2c) NetType/4G Language/zh_CN',
-    'Referer': 'https://servicewechat.com/wx9f2d7ce09eafe921/2/page-frame.html',
-  };
-  // Request body
-  const body = {
-    inArea: 1,
+    'Referer': 'https://servicewechat.com/wx9f2d7ce09eafe921/2/page-frame.html'
+    });
+
+    const body = {
+      inArea: 1,
     longitude: 108.65595947265625,
     province: '陕西省',
     latitude: 34.099886881510415,
     streetcode: '5112855303129561017',
     street: '西北销售路',
-    areaJSON: $.queryStr(area),
+    areaJSON: '{\"type\":0,\"circle\":{\"latitude\":\"34.1031877191\",\"longitude\":\"108.6537766457\",\"radius\":1050},\"id\":\"170002\",\"name\":\"鄠邑校区\"}',
     citycode: '156610100',
     city: '西安市',
     nationcode: '156',
@@ -84,17 +83,42 @@ function doSign(id,signId) {
     country: '中国',
     towncode: '610118003',
     township: '五竹街道'
+    };
+
+    fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(body),
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.code === 0 && result.data === '签到成功') {
+            console.log('签到成功');
+        } else if (result.code === 1 && result.data === '签到已结束') {
+            console.log('签到过期');
+        } else {
+            console.error('签到失败', result);
+        }
+    })
+    .catch(error => {
+        console.error('请求失败', error);
+    })
+    .finally(() => {
+        // Optional: Any cleanup or additional actions after the request
+    });
+}
+
+
+function doSign(id,signId) {
+  // URL
+  const url = `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=17&signId=${signId}`;
+  // Headers
+  const headers = {
+    
   };
-  const area = {
-    type: 0,
-    circle: $.queryStr(circle),
-    id: '170002',
-    name: '鄠邑校区'
-  };
-  const circle = {
-    latitude: '34.1031877191',
-    longitude: '108.6537766457',
-    radius: 1050
+  // Request body
+  const body = {
+    
   };
   // Make POST request
   $.post({ url, headers, body: JSON.stringify(body) }, (error, response, data) => {
