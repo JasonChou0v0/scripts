@@ -72,21 +72,21 @@ function doSign(id, signId) {
 
   // Request body
   const body = {
-    "inArea": 1,
-    "longitude": 108.65595947265625,
-    "province": "陕西省",
-    "latitude": 34.099886881510415,
-    "streetcode": "5112855303129561017",
-    "street": "西北销售路",
-    "areaJSON": "{\"type\":0,\"circle\":{\"latitude\":\"34.1031877191\",\"longitude\":\"108.6537766457\",\"radius\":1050},\"id\":\"170002\",\"name\":\"鄠邑校区\"}",
-    "citycode": "156610100",
-    "city": "西安市",
-    "nationcode": "156",
-    "adcode": "610118",
-    "district": "鄠邑区",
-    "country": "中国",
-    "towncode": "610118003",
-    "township": "五竹街道"
+    'inArea': 1,
+    'longitude': 108.65595947265625,
+    'province': '陕西省',
+    'latitude': 34.099886881510415,
+    'streetcode': '5112855303129561017',
+    'street': '西北销售路',
+    'areaJSON': '{\'type\':0,\'circle\':{\'latitude\':\'34.1031877191\',\'longitude\':\'108.6537766457\',\'radius\':1050},\'id\':\'170002\',\'name\':\'鄠邑校区\'}',
+    'citycode': '156610100',
+    'city': '西安市',
+    'nationcode': '156',
+    'adcode': '610118',
+    'district': '鄠邑区',
+    'country': '中国',
+    'towncode': '610118003',
+    'township': '五竹街道'
   };
 
   // Make POST request
