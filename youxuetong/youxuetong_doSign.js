@@ -40,7 +40,7 @@ function getSignList() {
           const id = firstEntry.id;
           const signId = firstEntry.signId;
           const schoolId = firstEntry.schoolId;
-          $.log(`id: ${id}, signId: ${signId}, schoolId: ${schoolId}`);
+          $.log(`id: ${id}, schoolId: ${schoolId}, signId: ${signId}`);
           doSign(id, signId, schoolId);
         } else {
           $.log('No entries found in the response.');
@@ -49,6 +49,7 @@ function getSignList() {
       } catch (e) {
         $.logErr(e);
       }
+      $.done();
     }
   });
 }
@@ -88,6 +89,7 @@ async function doSign(id, signId, schoolId) {
     $.post(options, (err, resp, data) => {
       if (error) {
         $.logErr(error);
+        $.done();
       } else {
         try {
           const result = JSON.parse(data);
@@ -106,9 +108,10 @@ async function doSign(id, signId, schoolId) {
           }
         } catch (e) {
           $.logErr(e);
+          $.done();
         }
       }
-      $.done();
+      // $.done();
     });
   });
 }
