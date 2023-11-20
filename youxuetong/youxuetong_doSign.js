@@ -60,7 +60,7 @@ async function doSign(id, signId, schoolId) {
     url: `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=${schoolId}&signId=${signId}`,
     headers: {
       'Host': 'gwxg.xsyu.edu.cn',
-      'token': '',
+      'token': '',  // Add the necessary token value here
       'content-type': 'application/json',
       'JWSESSION': JWSESSION,
       'Accept-Encoding': 'gzip,compress,br,deflate',
@@ -85,33 +85,34 @@ async function doSign(id, signId, schoolId) {
       "township": "五竹街道"
     }
   };
+
   return new Promise(resolve => {
     $.post(options, (err, resp, data) => {
-      if (error) {
-        $.logErr(error);
+      if (err) {
+        $.logErr(`Error: ${err.message}`);
         $.done();
       } else {
         try {
           const result = JSON.parse(data);
-           $.log(JSON.stringify(result, null, 2));
+          $.log(JSON.stringify(result, null, 2));
+
           // Check if sign-in was successful
           if (result.code === 0 && result.data === '签到成功') {
             // Send success message
             $.msg('签到成功', '签到成功！');
-          }else if (result.code === 1 && result.data === '签到已结束') {
+          } else if (result.code === 1 && result.data === '签到已结束') {
             // Send end message
             $.msg('签到过期', '签到过期！');
-          }else {
+          } else {
             // Log other responses for debugging
             $.log('签到失败！', JSON.stringify(result, null, 2));
             $.msg('签到失败！', JSON.stringify(result, null, 2));
           }
         } catch (e) {
-          $.logErr(e);
+          $.logErr(`Error parsing JSON: ${e.message}`);
           $.done();
         }
       }
-      // $.done();
     });
   });
 }
