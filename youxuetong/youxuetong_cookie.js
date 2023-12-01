@@ -10,7 +10,7 @@ if (cookieVal) {
   const jsession = getCookieValue(cookieVal, JWSESSIONKey);
   // const jsessionid = getCookieValue(cookieVal, JSESSIONIDKey);
   if (zhouzhou.setdata(jsession, JWSESSIONKey)) {
-    zhouzhou.msg(`${cookieName}`, 'JWSESSION获取成功', '');
+    zhouzhou.msg(`${cookieName}`, 'JWSESSION获取成功', ${jsession});
     zhouzhou.log(`[${cookieName}] JWSESSION获取成功, JWSESSION: ${jsession}`);
   }
   // if (zhouzhou.setdata(jsessionid, JSESSIONIDKey)) {
