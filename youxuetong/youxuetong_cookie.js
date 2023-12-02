@@ -4,19 +4,18 @@ const JWSESSIONKey = 'JWSESSION'
 const JSESSIONIDKey = 'JSESSIONID'
 const zhouzhou = init()
 const cookieVal = $request.headers['Cookie']
-//zhouzhou.log(JSON.stringify(headers, null, 2)); 可以获取整个headers，进行格式化输出
-if (cookieVal) {
-  // zhouzhou.msg(`${cookieName}`, '获取Cookie: 成功', '');
+let matchedOnce = false; // 新增标志变量
+
+if (cookieVal && !matchedOnce) {
   const jsession = getCookieValue(cookieVal, JWSESSIONKey);
-  // const jsessionid = getCookieValue(cookieVal, JSESSIONIDKey);
-  if (zhouzhou.setdata(jsession, JWSESSIONKey)) {
-    zhouzhou.msg(`${cookieName}`, 'JWSESSION获取成功', `${jsession}`);
-    zhouzhou.log(`[${cookieName}] JWSESSION获取成功, JWSESSION: ${jsession}`);
+  if (jsession) {
+    if (zhouzhou.setdata(jsession, JWSESSIONKey)) {
+      zhouzhou.msg(`${cookieName}`, 'JWSESSION获取成功', `${jsession}`);
+      zhouzhou.log(`[${cookieName}] JWSESSION获取成功, JWSESSION: ${jsession}`);
+      matchedOnce = true; // 设置标志变量为true，表示已经成功匹配一次
+      zhouzhou.done(); // 成功匹配后结束脚本执行
+    }
   }
-  // if (zhouzhou.setdata(jsessionid, JSESSIONIDKey)) {
-  //   zhouzhou.msg(`${cookieName}`, 'JSESSIONID获取成功', '');
-  //   zhouzhou.log(`[${cookieName}] JSESSIONID获取成功, JSESSIONID: ${jsessionid}`);
-  // }
 }
 function getCookieValue(cookieString, cookieKey) {
   const regex = new RegExp(`${cookieKey}=([^;]+)`);
