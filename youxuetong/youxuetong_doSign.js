@@ -52,7 +52,6 @@ function getSignList() {
     zhouzhou.get(options, (error, response, data) => {
       if (error) {
         zhouzhou.log(error);
-        zhouzhou.done();
       } else {
         try {
           const result = JSON.parse(data);
@@ -64,12 +63,10 @@ function getSignList() {
             zhouzhou.log(`id: ${id}, schoolId: ${schoolId}, signId: ${signId}`);
           } else {
             zhouzhou.log('No entries found in the response.');
-            zhouzhou.done();
           }
         } catch (e) {
           zhouzhou.log(e);
         }
-        zhouzhou.done();
       }
     })
   })
@@ -77,9 +74,8 @@ function getSignList() {
 
 //-----------------------------------------------------------------------------------------------------------
 function doSign(id, signId, schoolId) {
-  const options = {
-    url: `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=${schoolId}&signId=${signId}`,
-    headers: {
+    const url = `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${id}&schoolId=${schoolId}&signId=${signId}`;
+    const headers = {
       'Host': 'gwxg.xsyu.edu.cn',
       'token': '',  // Add the necessary token value here
       'content-type': 'application/json',
@@ -87,8 +83,8 @@ function doSign(id, signId, schoolId) {
       'Accept-Encoding': 'gzip,compress,br,deflate',
       'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.43(0x18002b2c) NetType/4G Language/zh_CN',
       'Referer': 'https://servicewechat.com/wx9f2d7ce09eafe921/2/page-frame.html'
-    },
-    body: {
+    };
+    const body= {
       "inArea": 1,
       "longitude": 108.65595947265625,
       "province": "陕西省",
@@ -104,18 +100,17 @@ function doSign(id, signId, schoolId) {
       "country": "中国",
       "towncode": "610118003",
       "township": "五竹街道"
-    }
-  };
+    };
+
     return new Promise((resolve, reject) => {
-        zhouzhou.post(JSON.parse(options), (err, response, data) => {
+      const options = { url: url, headers: JSON.parse(headers), body: JSON.parse(body)}
+        zhouzhou.post(options, (err, response, data) => {
           if (err) {
             zhouzhou.log(`Error: ${err.message}`);
-            zhouzhou.done();
           } else {
             try {
               const result = JSON.parse(data);
               zhouzhou.log(JSON.stringify(result, null, 2));
-    
               // Check if sign-in was successful
               if (result.code === 0 && result.data === '签到成功') {
                 // Send success message
@@ -130,7 +125,6 @@ function doSign(id, signId, schoolId) {
               }
             } catch (e) {
               zhouzhou.log(`Error parsing JSON: ${e.message}`);
-              zhouzhou.done();
             }
           }
         })
