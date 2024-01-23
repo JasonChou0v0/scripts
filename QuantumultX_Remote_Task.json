@@ -1,13 +1,13 @@
-{"name":"Jason's Script",
+{"name":"Jason's Scripts",
   "task":[
     {
       "config":"30 21 * * * https://raw.githubusercontent.com/zhouzhouchn/scripts/main/youxuetong/youxuetong_doSign.js, tag=油学通, img-url=signature.system, enabled=true",
-      "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=油学通_获取Cookie"
+      "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
     },
     {
       "config":"0 10 * * * https://raw.githubusercontent.com/leiyiyan/resource/main/script/netease_musician/task.js, tag=网易音乐人, img-url=signature.system, enabled=true",
-      "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=网易音乐人_获取Cookie"
+      "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
     }
   ],
-  "description":"Script form JasonChou0v0"
+  "description":"Script form GitHub@JasonChou0v0 【添加任一附件即可】"
 }
