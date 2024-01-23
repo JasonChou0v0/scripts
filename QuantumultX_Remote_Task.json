@@ -1,0 +1,13 @@
+{"name":"Jason's Script",
+  "task":[
+    {
+      "config":"30 21 * * * https://raw.githubusercontent.com/zhouzhouchn/scripts/main/youxuetong/youxuetong_doSign.js, tag=油学通, img-url=signature.system, enabled=true",
+      "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=油学通_获取Cookie"
+    },
+    {
+      "config":"0 10 * * * https://raw.githubusercontent.com/leiyiyan/resource/main/script/netease_musician/task.js, tag=网易音乐人, img-url=signature.system, enabled=true",
+      "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=网易音乐人_获取Cookie"
+    }
+  ],
+  "description":"Script form JasonChou0v0"
+}
