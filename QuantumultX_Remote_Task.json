@@ -1,18 +1,18 @@
 {"name":"Jason's Scripts",
   "task":[
     {
-      "config":"30 21 * * * https://raw.githubusercontent.com/zhouzhouchn/scripts/main/youxuetong/youxuetong_doSign.js, tag=油学通, img-url=signature.system, enabled=true",
+      "config":"0 30 21 * * ? https://raw.githubusercontent.com/zhouzhouchn/scripts/main/youxuetong/youxuetong_doSign.js, tag=油学通, img-url=signature.system, enabled=true",
       "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
     },
     {
-      "config":"5 10 * * * https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/95598/95598.js, tag=网上国网, img-url=https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/83/d8/8a/83d88a92-5a4d-7a2f-118c-80d795e7a9f6/AppIcon-0-0-1x_U007emarketing-0-5-0-0-sRGB-85-220.png/144x144.png, enabled=true"
+      "config":"0 5 10 * * ? https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/95598/95598.js, tag=网上国网, img-url=https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/83/d8/8a/83d88a92-5a4d-7a2f-118c-80d795e7a9f6/AppIcon-0-0-1x_U007emarketing-0-5-0-0-sRGB-85-220.png/144x144.png, enabled=true"
     },
     {
-      "config":"0 0 10 * * ? https://raw.githubusercontent.com/lowking/Scripts/master/ali/aliYunPanCheckIn.js, tag=阿里云盘, img-url=signature.system, enabled=true",
+      "config":"0 0 10 * * ? https://gist.githubusercontent.com/Sliverkiss/33800a98dcd029ba09f8b6fc6f0f5162/raw/aliyun.js, tag=阿里云签到, img-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/AliYunDrive.png, enabled=true",
       "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
     },
     {
-      "config":"0 10 * * * https://raw.githubusercontent.com/leiyiyan/resource/main/script/netease_musician/task.js, tag=网易音乐人, img-url=signature.system, enabled=true",
+      "config":"0 10 10 * * ? https://raw.githubusercontent.com/leiyiyan/resource/main/script/netease_musician/task.js, tag=网易音乐人, img-url=signature.system, enabled=true",
       "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
     }
   ],
