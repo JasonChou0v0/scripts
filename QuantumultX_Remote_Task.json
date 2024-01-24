@@ -1,20 +1,53 @@
-{"name":"Jason's Scripts",
-  "task":[
-    {
-      "config":"0 30 21 * * ? https://raw.githubusercontent.com/zhouzhouchn/scripts/main/youxuetong/youxuetong_doSign.js, tag=油学通, img-url=signature.system, enabled=true",
-      "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
-    },
-    {
-      "config":"0 5 10 * * ? https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/95598/95598.js, tag=网上国网, img-url=https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/83/d8/8a/83d88a92-5a4d-7a2f-118c-80d795e7a9f6/AppIcon-0-0-1x_U007emarketing-0-5-0-0-sRGB-85-220.png/144x144.png, enabled=true"
-    },
-    {
-      "config":"0 0 10 * * ? https://gist.githubusercontent.com/Sliverkiss/33800a98dcd029ba09f8b6fc6f0f5162/raw/aliyun.js, tag=阿里云签到, img-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/AliYunDrive.png, enabled=true",
-      "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
-    },
-    {
-      "config":"0 10 10 * * ? https://raw.githubusercontent.com/leiyiyan/resource/main/script/netease_musician/task.js, tag=网易音乐人, img-url=signature.system, enabled=true",
-      "addons":"https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
-    }
-  ],
-  "description":"Script form GitHub@JasonChou0v0          【附加组件通用】"
+{
+    "name": "Jason's Scripts",
+    "description": "Script form GitHub@JasonChou0v0          【附加组件通用】",
+    "task": [
+        {
+            "config": "0 30 21 * * ? https://raw.githubusercontent.com/zhouzhouchn/scripts/main/youxuetong/youxuetong_doSign.js, tag=油学通, img-url=signature.system, enabled=true",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "0 5 10 * * ? https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/95598/95598.js, tag=网上国网, img-url=https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/83/d8/8a/83d88a92-5a4d-7a2f-118c-80d795e7a9f6/AppIcon-0-0-1x_U007emarketing-0-5-0-0-sRGB-85-220.png/144x144.png, enabled=true"
+        },
+        {
+            "config": "0 0 10 * * ? https://gist.githubusercontent.com/Sliverkiss/33800a98dcd029ba09f8b6fc6f0f5162/raw/aliyun.js, tag=阿里云签到, img-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/AliYunDrive.png, enabled=true",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "0 10 10 * * ? https://raw.githubusercontent.com/leiyiyan/resource/main/script/netease_musician/task.js, tag=网易音乐人, img-url=signature.system, enabled=true",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "10 9 * * * https://raw.githubusercontent.com/ClydeTime/Quantumult/main/Script/Task/BiliBili.js, tag=B站每日等级任务, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Alpha/bilibili.png, enabled=true",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "5 0 * * * https://raw.githubusercontent.com/kayanouriko/quantumultx-mihoyobbs-auto-helper/main/src/mihoyobbs-auto-helper.js, tag=米游社小助手, img-url=https://raw.githubusercontent.com/kayanouriko/quantumultx-mihoyobbs-auto-helper/main/assets/gallery-icon.png, enabled=false",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "0 * * * * https://raw.githubusercontent.com/MCdasheng/QuantumultX/main/Scripts/myScripts/TestFlight.js, tag=TestFlight自动加入, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/testflight.png, enabled=true",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "0 10 * * * https://gist.githubusercontent.com/Sliverkiss/4984f7f34d6df8bcdd1e13ecac4bba51/raw/bwcj.js, tag=霸王茶姬小程序签到, img-url=https://raw.githubusercontent.com/Guding88/Script/main/bawangchaji/bwcj.png, enabled=false",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "21 0 5 * * * https://gist.githubusercontent.com/Sliverkiss/e427dc3164d0c008f8d282f180d7fc00/raw/280945016940399a593955e40ce0d4591a5292c5/hsay.js, tag=沪上阿姨小程序签到,img-url=https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/icon/Hsay.png, enabled=false",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "21 30 0 * * * https://gist.githubusercontent.com/Sliverkiss/f533ada8d658a0cbbe4b2e791c3b0ac8/raw/be3d9b74fe1cde69e6d39b599e5526110c996958/nestle.js, tag=雀巢会员俱乐部签到,img-url=https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/icon/Nestle.png, enabled=false",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "0 0 12 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/meituan/meituan.js, tag=美团签到, img-url=https://qxnav.com/rules/QuantumultX/img/meituan.png, enabled=true",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "0 6,8 * * * https://raw.githubusercontent.com/JoJoJotarou/myScript/master/script/meituan/mall.meituan.mallcoin.task.js, tag=美图买菜任务, img-url=https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/icon/Mtmc.png, enabled=false",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        }
+    ]
 }
