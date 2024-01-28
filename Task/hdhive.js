@@ -10,7 +10,6 @@ let userList = [];
 let userIdx = 0;
 let userCount = 0;
 //调试
-$.is_debug = ($.isNode() ? process.env.IS_DEDUG : $.getdata('is_debug')) || 'false';
 $.notifyMsg = [];// 为通知准备的空数组
 $.barkKey = ($.isNode() ? process.env["bark_key"] : $.getdata("bark_key")) || '';//bark推送
 //---------------------- 自定义变量区域 -----------------------------------
@@ -19,7 +18,16 @@ async function main() {
     console.log('\n============= 用户CK有效性验证 =============\n');
     // 签到
     for (let user of userList) {
-        await user.signin();
+        //console.log(`?账号${user.ADrivreInfo.name} >> Start work`)
+        console.log(`随机延迟${user.getRandomTime()}ms`);
+        //刷新token
+        if (user.ckStatus) {
+            //签到
+            await user.signin();
+        } else {
+            
+        }
+
     }
 }
 
@@ -36,7 +44,19 @@ class UserInfo {
     getRandomTime() {
         return randomInt(1000, 3000)
     }
-
+    //请求二次封装
+    Request(options, method) {
+        typeof (method) === 'undefined' ? ('body' in options ? method = 'post' : method = 'get') : method = method;
+        return new Promise((resolve, reject) => {
+            $.http[method.toLowerCase()](options)
+                .then((response) => {
+                    let res = response.body;
+                    res = $.toObj(res) || res;
+                    resolve(res);
+                })
+                .catch((err) => reject(err));
+        });
+    };
     //签到函数
     async signin() {
         try {
@@ -51,22 +71,19 @@ class UserInfo {
                 body: ``
             };
             //post方法
-            let { result, error } = await httpRequest(options) ?? {};
-            debug(error || result, "签到")
-            if (!error) {
-                $.log(`签到成功！`);
-                $.log(`${result?.message}`);
-            } else {
-                $.log(`❌点赞失败!${cerror?.message}`);
-            }
+            let res = await this.Request(options);
+            $.log(res.message);
+            //获取响应体
+            let { nickname, avatar_url, points } = await getRespBody(this.token) ?? {};
+            $.log(nickname);
+            $.log(avatar_url);
+            $.log(points);
         } catch (e) {
             console.log(e);
         }
     }
 
 }
-
-
 //获取Cookie
 async function getCookie() {
     if ($request && $request.method != 'OPTIONS') {
@@ -78,6 +95,27 @@ async function getCookie() {
             $.msg($.name, "", "错误获取签到Cookie失败");
         }
     }
+}
+async function getRespBody(Authorization) {
+    //获取用户名作为标识键
+    const options = {
+        url: `https://www.hdhive.org/api/v1/user`,
+        headers: {
+            'Authorization': Authorization,
+            'Content-Type': 'application/json'
+        }
+    };
+    return new Promise(resolve => {
+        $.post(options, async (error, response, data) => {
+            try {
+                let result = JSON.parse(data);
+                resolve(result);
+            } catch (error) {
+                $.log(error);
+                resolve();
+            }
+        });
+    });
 }
 
 //主程序执行入口
