@@ -129,6 +129,7 @@ async function getCookie() {
         if (tokenValue) {
             $.setdata(tokenValue,ckName);
             $.msg($.name, "", "获取签到Cookie成功?");
+            $.msg($.name, "", tokenValue);
         } else {
             $.msg($.name, "", "错误获取签到Cookie失败");
         }
