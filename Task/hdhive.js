@@ -52,15 +52,17 @@ class UserInfo {
             };
             //post方法
             let { result, error } = await httpRequest(options) ?? {};
+            debug(error || result, "签到")
             if (!error) {
-                $.signMsg = `${result?.__showToast?.title}`;
+                $.log(`✅点赞成功！`);
             } else {
-                this.ckStatus = false;
+                $.log(`❌点赞失败!${cerror?.message}`);
             }
         } catch (e) {
             console.log(e);
         }
     }
+
 }
 
 
@@ -120,7 +122,27 @@ function DoubleLog(data) {
         $.notifyMsg.push(`${data}`);
     }
 }
-
+// DEBUG
+function debug(text, title = 'debug') {
+    if ($.is_debug === 'true') {
+        if (typeof text == "string") {
+            console.log(`\n-----------${title}------------\n`);
+            console.log(text);
+            console.log(`\n-----------${title}------------\n`);
+        } else if (typeof text == "object") {
+            console.log(`\n-----------${title}------------\n`);
+            console.log($.toStr(text));
+            console.log(`\n-----------${title}------------\n`);
+        }
+    }
+}
+//把json 转为以 ‘&’ 连接的字符串
+function toParams(body) {
+    var params = Object.keys(body).map(function (key) {
+        return encodeURIComponent(key) + "=" + encodeURIComponent(body[key]);
+    }).join("&");
+    return params;
+}
 //检查变量
 async function checkEnv() {
     if (userCookie) {
@@ -152,7 +174,7 @@ async function SendMsg(message) {
         if ($.isNode()) {
             await notify.sendNotify($.name, message)
         } else {
-            $.msg($.name, $.signMsg, message, { 'media-url': $.avatar })
+            $.msg($.name, '', message)
         }
     } else {
         console.log(message)
