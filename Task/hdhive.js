@@ -54,7 +54,8 @@ class UserInfo {
             let { result, error } = await httpRequest(options) ?? {};
             debug(error || result, "签到")
             if (!error) {
-                $.log(`✅点赞成功！`);
+                $.log(`签到成功！`);
+                $.log(`${result?.message}`);
             } else {
                 $.log(`❌点赞失败!${cerror?.message}`);
             }
