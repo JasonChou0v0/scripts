@@ -47,8 +47,6 @@ async function main() {
     }
 }
 
-
-
 class UserInfo {
     constructor(str) {
         this.index = ++userIdx;
@@ -57,7 +55,10 @@ class UserInfo {
         this.ckStatus = true;
         this.headers = {
             'Authorization': this.token,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip,compress,br,deflate',
+            'Connection': 'keep-alive',
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.47(0x18002f2a) NetType/4G Language/zh_CN'
         };
     }
     getRandomTime() {
@@ -77,31 +78,21 @@ class UserInfo {
         });
     };
     async getSignList() {
-        try {
-            const options = {
-                url: 'https://gwxg.xsyu.edu.cn/sign/mobile/receive/getMySignLogs?page=1&size=10',
-                headers: {
-                    'Sec-Fetch-Dest' : `empty`,
-                    'Connection' : `keep-alive`,
-                    'Accept-Encoding' : `gzip, deflate, br`,
-                    'JWSESSION' : this.token,
-                    'Content-Type' : `application/json;charset=UTF-8`,
-                    'Sec-Fetch-Site' : `same-origin`,
-                    'User-Agent' : `Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.47(0x18002f2a) NetType/4G Language/zh_CN miniProgram/wx9f2d7ce09eafe921`,
-                    'Sec-Fetch-Mode' : `cors`,
-                    'Cookie' : this.cookie,
-                    'Referer' : `https://gwxg.xsyu.edu.cn/h5/mobile/sign/index/message`,
-                    'Host' : `gwxg.xsyu.edu.cn`,
-                    'Accept-Language' : `zh-CN,zh-Hans;q=0.9`,
-                    'Accept' : `application/json, text/plain, */*`
-                    }
-            };
-            //post方法
-            let res = await this.Request(options, "get");
-            return res;
-        } catch (e) {
-            throw e;
-        }
+        const options = {
+            url: 'https://gwxg.xsyu.edu.cn/sign/mobile/receive/getMySignLogs?page=1&size=10',
+            headers: {
+                ...this.headers,
+                'JWSESSION': this.token,
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Cookie': this.cookie,
+                'Referer': 'https://gwxg.xsyu.edu.cn/h5/mobile/sign/index/message',
+                'Host': 'gwxg.xsyu.edu.cn',
+                'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
+                'Accept': 'application/json, text/plain, */*'
+            }
+        };
+        //post方法
+        return await this.Request(options, 'get');
     }
 
     //签到函数
@@ -119,26 +110,23 @@ class UserInfo {
                 body: body1,
                 //请求头, 所有接口通用
                 headers: {
-                    'Cookie' : ``,
-                    'content-type' : `application/json`,
-                    'Connection' : `keep-alive`,
-                    'Accept-Encoding' : `gzip,compress,br,deflate`,
-                    'Referer' : `https://servicewechat.com/wx9f2d7ce09eafe921/2/page-frame.html`,
-                    'Host' : `gwxg.xsyu.edu.cn`,
-                    'User-Agent' : `Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.47(0x18002f2a) NetType/4G Language/zh_CN`,
-                    'JWSESSION' : this.token,
-                    'token' : ``
-                    }
+                    ...this.headers,
+                    'JWSESSION': this.token,
+                    'Content-Type': 'application/json',
+                    'Referer': 'https://servicewechat.com/wx9f2d7ce09eafe921/2/page-frame.html'
+                }
             };
             //post方法
             let res = await this.Request(options);
             console.log(res.message);
             SendMsg(res.message);
-        } catch (e) {
-            console.log(e);
+        } catch (error) {
+            console.log(error);
+            throw error;
         }
     }
 }
+
 //获取Cookie
 async function getCookie() {
     if ($request && $request.method != 'OPTIONS') {
