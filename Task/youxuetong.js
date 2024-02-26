@@ -112,9 +112,11 @@ class UserInfo {
             const Id = signList.data[0].id;
             const name = signList.data[0].name;
             const signUrl = `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${SignId}&schoolId=17&signId=${Id}`;
+            const body1 = `{"latitude":34.09863444010416,"longitude":108.65533067491319,"nationcode":"156","country":"中国","province":"陕西省","citycode":"156610100","city":"西安市","adcode":"610118","district":"鄠邑区","towncode":"610118003","township":"五竹街道","streetcode":"2039016016611841091","street":"吕公路西段","inArea":1,"areaJSON":"{\"type\":0,\"circle\":{\"latitude\":\"34.1031877191\",\"longitude\":\"108.6537766457\",\"radius\":1050},\"id\":\"170002\",\"name\":\"鄠邑校区\"}"}`;
             const options = {
                 //签到任务调用签到接口
                 url: signUrl,
+                body: body1,
                 //请求头, 所有接口通用
                 headers: {
                     'Cookie' : ``,
@@ -126,8 +128,7 @@ class UserInfo {
                     'User-Agent' : `Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.47(0x18002f2a) NetType/4G Language/zh_CN`,
                     'JWSESSION' : this.token,
                     'token' : ``
-                    },
-                body: { "latitude": 34.09863444010416, "longitude": 108.65533067491319, "nationcode": "156", "country": "中国", "province": "陕西省", "citycode": "156610100", "city": "西安市", "adcode": "610118", "district": "鄠邑区", "towncode": "610118003", "township": "五竹街道", "streetcode": "2039016016611841091", "street": "吕公路西段", "inArea": 1, "areaJSON": "{\"type\":0,\"circle\":{\"latitude\":\"34.1031877191\",\"longitude\":\"108.6537766457\",\"radius\":1050},\"id\":\"170002\",\"name\":\"鄠邑校区\"}" }
+                    }
             };
             //post方法
             let res = await this.Request(options);
