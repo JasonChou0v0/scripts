@@ -14,7 +14,130 @@ $.is_debug = ($.isNode() ? process.env.IS_DEDUG : $.getdata('is_debug')) || 'fal
 $.notifyMsg = [];// 为通知准备的空数组
 $.barkKey = ($.isNode() ? process.env["bark_key"] : $.getdata("bark_key")) || '';//bark推送
 //---------------------- 自定义变量区域 -----------------------------------
+//脚本入口函数main()
+async function main() {
+    console.log('\n============= 用户CK有效性验证 =============\n');
+    // 遍历用户列表
+    for (let user of userList) {
+        console.log(`随机延迟${user.getRandomTime()}ms`);
+        
+        // 刷新token
+        if (user.ckStatus) {
+            console.log(`开始签到用户 ${user.index}`);
+            
+            try {
+                // 执行签到操作
+                await user.signin();
+                console.log(`用户 ${user.index} 签到成功`);
+            } catch (error) {
+                console.log(`用户 ${user.index} 签到失败: ${error.message || error}`);
+                // 在签到失败时的处理逻辑，可根据需要进行调整
+                // 可以考虑发送通知或记录日志等
+            }
+        } else {
+            console.log(`用户 ${user.index} 的CK无效，跳过签到`);
+            // 在CK无效时的处理逻辑，可根据需要进行调整
+            // 可以考虑发送通知或记录日志等
+        }
+        
+        // 添加适当的延迟，防止请求过于频繁
+        const delayTime = randomInt(1000, 3000);
+        console.log(`随机延迟${delayTime}ms`);
+        await $.wait(delayTime);
+    }
+}
 
+
+
+class UserInfo {
+    constructor(str) {
+        this.index = ++userIdx;
+        this.token = str; 
+        this.cookie = `JWSESSION=${str}; JWSESSION=${str}`;
+        this.ckStatus = true;
+        this.headers = {
+            'Authorization': this.token,
+            'Content-Type': 'application/json'
+        };
+    }
+    getRandomTime() {
+        return randomInt(1000, 3000)
+    }
+    //请求二次封装
+    Request(options, method) {
+        typeof (method) === 'undefined' ? ('body' in options ? method = 'post' : method = 'get') : method = method;
+        return new Promise((resolve, reject) => {
+            $.http[method.toLowerCase()](options)
+                .then((response) => {
+                    let res = response.body;
+                    res = $.toObj(res) || res;
+                    resolve(res);
+                })
+                .catch((err) => reject(err));
+        });
+    };
+    async getSignList() {
+        try {
+            const options = {
+                url: 'https://gwxg.xsyu.edu.cn/sign/mobile/receive/getMySignLogs?page=1&size=10',
+                headers: {
+                    'Sec-Fetch-Dest' : `empty`,
+                    'Connection' : `keep-alive`,
+                    'Accept-Encoding' : `gzip, deflate, br`,
+                    'JWSESSION' : this.token,
+                    'Content-Type' : `application/json;charset=UTF-8`,
+                    'Sec-Fetch-Site' : `same-origin`,
+                    'User-Agent' : `Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.47(0x18002f2a) NetType/4G Language/zh_CN miniProgram/wx9f2d7ce09eafe921`,
+                    'Sec-Fetch-Mode' : `cors`,
+                    'Cookie' : this.cookie,
+                    'Referer' : `https://gwxg.xsyu.edu.cn/h5/mobile/sign/index/message`,
+                    'Host' : `gwxg.xsyu.edu.cn`,
+                    'Accept-Language' : `zh-CN,zh-Hans;q=0.9`,
+                    'Accept' : `application/json, text/plain, */*`
+                    }
+            };
+            //post方法
+            let res = await this.Request(options, "get");
+            return res;
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    //签到函数
+    async signin() {
+        try {
+            let signList = await this.getSignList();
+            const SignId = signList.data[0].signId;
+            const Id = signList.data[0].id;
+            const name = signList.data[0].name;
+            const signUrl = `https://gwxg.xsyu.edu.cn/sign/mobile/receive/doSignByArea?id=${SignId}&schoolId=17&signId=${Id}`;
+            const options = {
+                //签到任务调用签到接口
+                url: signUrl,
+                //请求头, 所有接口通用
+                headers: {
+                    'Cookie' : ``,
+                    'content-type' : `application/json`,
+                    'Connection' : `keep-alive`,
+                    'Accept-Encoding' : `gzip,compress,br,deflate`,
+                    'Referer' : `https://servicewechat.com/wx9f2d7ce09eafe921/2/page-frame.html`,
+                    'Host' : `gwxg.xsyu.edu.cn`,
+                    'User-Agent' : `Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.47(0x18002f2a) NetType/4G Language/zh_CN`,
+                    'JWSESSION' : this.token,
+                    'token' : ``
+                    },
+                body: { "latitude": 34.09863444010416, "longitude": 108.65533067491319, "nationcode": "156", "country": "中国", "province": "陕西省", "citycode": "156610100", "city": "西安市", "adcode": "610118", "district": "鄠邑区", "towncode": "610118003", "township": "五竹街道", "streetcode": "2039016016611841091", "street": "吕公路西段", "inArea": 1, "areaJSON": "{\"type\":0,\"circle\":{\"latitude\":\"34.1031877191\",\"longitude\":\"108.6537766457\",\"radius\":1050},\"id\":\"170002\",\"name\":\"鄠邑校区\"}" }
+            };
+            //post方法
+            let res = await this.Request(options);
+            console.log(res.message);
+            SendMsg(res.message);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
 //获取Cookie
 async function getCookie() {
     if ($request && $request.method != 'OPTIONS') {
@@ -38,8 +161,7 @@ async function getCookie() {
     //未检测到ck，退出
     if (!(await checkEnv())) {throw new Error(`?未检测到ck，请添加环境变量`)};
     if (userList.length > 0) {
-        
-        return;
+        await main();
     }
 })()
     .catch((e) => $.notifyMsg.push(e.message || e))//捕获登录函数等抛出的异常, 并把原因添加到全局变量(通知)
