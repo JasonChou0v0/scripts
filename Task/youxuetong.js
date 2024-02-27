@@ -27,8 +27,8 @@ async function main() {
             
             try {
                 // 执行签到操作
-                await user.signin();
-                console.log(`用户 ${user.index} 签到成功`);
+                await user.signIn();
+                // console.log(`用户 ${user.index} 签到成功`);
             } catch (error) {
                 console.log(`用户 ${user.index} 签到失败: ${error.message || error}`);
                 // 在签到失败时的处理逻辑，可根据需要进行调整
@@ -96,7 +96,7 @@ class UserInfo {
     }
 
     //签到函数
-    async signin() {
+    async signIn() {
         try {
             let signList = await this.getSignList();
             const SignId = signList.data[0].signId;
@@ -135,8 +135,6 @@ class UserInfo {
             console.log(Id);
             console.log(name);
             console.log(signUrl);
-            console.log(signBody);
-
             const options = {
                 //签到任务调用签到接口
                 url: signUrl,
@@ -151,8 +149,8 @@ class UserInfo {
             };
             //post方法
             let res = await this.Request(options, 'post');
-            console.log(res.message);
-            SendMsg(res.message);
+            console.log(`${name} : ${res.message || res.data}`);
+            SendMsg(`${name} : ${res.message || res.data}`);
         } catch (error) {
             console.log(error);
             throw error;
