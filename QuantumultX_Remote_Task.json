@@ -3,6 +3,10 @@
     "description": "Script form GitHub@JasonChou0v0          【附加组件通用】",
     "task": [
         {
+            "config": "0 30 21 * * ? https://raw.githubusercontent.com/JasonChou0v0/scripts/main/Task/hdhive.js, tag=影巢, img-url=https://hdhive.org/favicon.ico, enabled=true",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
             "config": "0 30 21 * * ? https://raw.githubusercontent.com/JasonChou0v0/scripts/main/Task/youxuetong.js, tag=油学通, img-url=signature.system, enabled=true",
             "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
         },
