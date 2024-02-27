@@ -28,7 +28,7 @@ async function main() {
             try {
                 // 执行签到操作
                 await user.signin();
-                console.log(`用户 ${user.index} 签到成功`);
+                // console.log(`用户 ${user.index} 签到成功`);
             } catch (error) {
                 console.log(`用户 ${user.index} 签到失败: ${error.message || error}`);
                 // 在签到失败时的处理逻辑，可根据需要进行调整
@@ -46,9 +46,6 @@ async function main() {
         await $.wait(delayTime);
     }
 }
-
-
-
 class UserInfo {
     constructor(str) {
         this.index = ++userIdx;
@@ -75,6 +72,20 @@ class UserInfo {
                 .catch((err) => reject(err));
         });
     };
+
+    async getRespBody() {
+        //获取用户名作为标识键
+        const options = {
+            url: `https://www.hdhive.org/api/v1/user`,
+            headers: {
+                'Authorization': this.token,
+                'Content-Type': 'application/json'
+            }
+        };
+        //get方法
+        return await this.Request(options, 'get');
+    }
+
     //签到函数
     async signin() {
         try {
@@ -89,42 +100,22 @@ class UserInfo {
                 body: ``
             };
             //获取响应体
-            let { nickname, avatar_url, points } = await getRespBody(this.token) ?? {};
+            const response = await getRespBody() ?? {};
+            const nickname = response.data.nickname;
+            const avatarUrl = response.data.avatar_url;
+            const points = response.data.user_meta.points;
             console.log(nickname);
             console.log(avatar_url);
             console.log(points);
             //post方法
-            let res = await this.Request(options);
+            let res = await this.Request(options, 'post');
+            console.log(`${nickname} : ${res.message || res.data}`);
+            SendMsg(`${nickname} : ${res.message || res.data}；目前积分${points}个`);
             console.log(res.message);
-            $.msg($.name, "用户${nickname}", "签到成功,目前积分${points}个");
         } catch (e) {
             console.log(e);
         }
     }
-    async getRespBody(Authorization) {
-        //获取用户名作为标识键
-        const options = {
-            url: `https://www.hdhive.org/api/v1/user`,
-            headers: {
-                'Authorization': Authorization,
-                'Content-Type': 'application/json'
-            }
-        };
-        return new Promise(resolve => {
-            $.post(options, async (error, response, data) => {
-                try {
-                    console.log(data);
-                    let result = JSON.parse(data);
-                    console.log(result);
-                    resolve(result);
-                } catch (error) {
-                    console.log(error);
-                    resolve();
-                }
-            });
-        });
-    }
-
 }
 //获取Cookie
 async function getCookie() {
@@ -138,7 +129,6 @@ async function getCookie() {
         }
     }
 }
-
 //主程序执行入口
 !(async () => {
     //没有设置变量,执行Cookie获取
@@ -170,39 +160,7 @@ async function getCookie() {
               \/     \/           \/          \/     \/              
 */  
 /** --------------------------------辅助函数区域------------------------------------------- */
-// 双平台log输出
-function DoubleLog(data) {
-    if ($.isNode()) {
-        if (data) {
-            console.log(`${data}`);
-            $.notifyMsg.push(`${data}`);
-        }
-    } else {
-        console.log(`${data}`);
-        $.notifyMsg.push(`${data}`);
-    }
-}
-// DEBUG
-function debug(text, title = 'debug') {
-    if ($.is_debug === 'true') {
-        if (typeof text == "string") {
-            console.log(`\n-----------${title}------------\n`);
-            console.log(text);
-            console.log(`\n-----------${title}------------\n`);
-        } else if (typeof text == "object") {
-            console.log(`\n-----------${title}------------\n`);
-            console.log($.toStr(text));
-            console.log(`\n-----------${title}------------\n`);
-        }
-    }
-}
-//把json 转为以 ‘&’ 连接的字符串
-function toParams(body) {
-    var params = Object.keys(body).map(function (key) {
-        return encodeURIComponent(key) + "=" + encodeURIComponent(body[key]);
-    }).join("&");
-    return params;
-}
+
 //检查变量
 async function checkEnv() {
     if (userCookie) {
@@ -242,8 +200,6 @@ async function SendMsg(message) {
 }
 
 /** ---------------------------------固定不动区域----------------------------------------- */
-//请求函数函数二次封装
-function httpRequest(options, method) { typeof (method) === 'undefined' ? ('body' in options ? method = 'post' : method = 'get') : method = method; return new Promise((resolve) => { $[method](options, (err, resp, data) => { try { if (err) { console.log(`${method}请求失败`); $.logErr(err) } else { if (data) { typeof JSON.parse(data) == 'object' ? data = JSON.parse(data) : data = data; resolve(data) } else { console.log(`请求api返回数据为空，请检查自身原因`) } } } catch (e) { $.logErr(e, resp) } finally { resolve() } }) }) }
 //Bark APP notify
 async function BarkNotify(c, k, t, b) { for (let i = 0; i < 3; i++) { console.log(`?Bark notify >> Start push (${i + 1})`); const s = await new Promise((n) => { c.post({ url: 'https://api.day.app/push', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: t, body: b, device_key: k, ext_params: { group: t } }) }, (e, r, d) => r && r.status == 200 ? n(1) : n(d || e)) }); if (s === 1) { console.log('?Push success!'); break } else { console.log(`?Push failed! >> ${s.message || s}`) } } };
 //From chavyleung's Env.js
