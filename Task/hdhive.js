@@ -20,11 +20,9 @@ async function main() {
     // 遍历用户列表
     for (let user of userList) {
         console.log(`随机延迟${user.getRandomTime()}ms`);
-        
         // 刷新token
         if (user.ckStatus) {
             console.log(`开始签到用户 ${user.index}`);
-            
             try {
                 // 执行签到操作
                 await user.signin();
@@ -39,7 +37,6 @@ async function main() {
             // 在CK无效时的处理逻辑，可根据需要进行调整
             // 可以考虑发送通知或记录日志等
         }
-        
         // 添加适当的延迟，防止请求过于频繁
         const delayTime = randomInt(1000, 3000);
         console.log(`随机延迟${delayTime}ms`);
@@ -72,7 +69,6 @@ class UserInfo {
                 .catch((err) => reject(err));
         });
     };
-
     async getRespBody() {
         //获取用户名作为标识键
         const options = {
@@ -97,19 +93,18 @@ class UserInfo {
                 body: ``
             };
             //获取响应体
-            const response = await getRespBody() ?? {};
+            const response = await this.getRespBody() ?? {};
             console.log(JSON.stringify(response));
             const nickname = response.data.nickname;
-            const avatarUrl = response.data.avatar_url;
+            const avatar_url = response.data.avatar_url;
             const points = response.data.user_meta.points;
-            console.log(nickname);
-            console.log(avatar_url);
-            console.log(points);
+            // console.log(nickname);
+            // console.log(avatar_url);
+            // console.log(points);
             //post方法
             let res = await this.Request(options, 'post');
             console.log(`${nickname} : ${res.message || res.data}`);
-            SendMsg(`${nickname} : ${res.message || res.data}；目前积分${points}个`);
-            console.log(res.message);
+            SendMsg(`${nickname} : ${res.message || res.data}；目前积分${points}个`, avatar_url);
         } catch (e) {
             console.log(e);
         }
@@ -148,7 +143,6 @@ async function getCookie() {
         await SendMsg($.notifyMsg.join('\n'))//带上总结推送通知
         $.done(); //调用Surge、QX内部特有的函数, 用于退出脚本执行
     });
-
 /*
     ____.                            _________ .__                  
     |    |____    __________   ____   \_   ___ \|  |__   ____  __ __ 
@@ -184,13 +178,13 @@ function randomInt(min, max) {
 }
 
 // 发送消息
-async function SendMsg(message) {
+async function SendMsg(message, avatar_url) {
     if (!message) return;
     if (Notify > 0) {
         if ($.isNode()) {
             await notify.sendNotify($.name, message)
         } else {
-            $.msg($.name, '', message)
+            $.msg($.name, '', message, { mediaUrl: avatar_url })
         }
     } else {
         console.log(message)
