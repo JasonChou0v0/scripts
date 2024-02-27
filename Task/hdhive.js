@@ -78,14 +78,12 @@ class UserInfo {
         const options = {
             url: `https://www.hdhive.org/api/v1/user`,
             headers: {
-                'Authorization': this.token,
-                'Content-Type': 'application/json'
+                ...this.headers
             }
         };
         //get方法
         return await this.Request(options, 'get');
     }
-
     //签到函数
     async signin() {
         try {
@@ -94,13 +92,13 @@ class UserInfo {
                 url: `https://www.hdhive.org/api/v1/customer/user/daily-check-in`,
                 //请求头, 所有接口通用
                 headers: {
-                    'Authorization': this.token,
-                    'Content-Type': 'application/json'
+                    ...this.headers
                 },
                 body: ``
             };
             //获取响应体
             const response = await getRespBody() ?? {};
+            console.log(JSON.stringify(response));
             const nickname = response.data.nickname;
             const avatarUrl = response.data.avatar_url;
             const points = response.data.user_meta.points;
