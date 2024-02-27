@@ -100,7 +100,7 @@ class UserInfo {
             //post方法
             let res = await this.Request(options, 'post');
             console.log(`${nickname} : ${res.message || res.data}`);
-            SendMsg(`${nickname} : ${res.message || res.data}；目前积分${points}个`);
+            SendMsg(`${nickname} : ${res.message || res.data}\n目前积分${points}个`);
         } catch (e) {
             console.log(e);
         }
