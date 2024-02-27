@@ -96,15 +96,11 @@ class UserInfo {
             const response = await this.getRespBody() ?? {};
             console.log(JSON.stringify(response));
             const nickname = response.data.nickname;
-            const avatar_url = response.data.avatar_url;
             const points = response.data.user_meta.points;
-            // console.log(nickname);
-            // console.log(avatar_url);
-            // console.log(points);
             //post方法
             let res = await this.Request(options, 'post');
             console.log(`${nickname} : ${res.message || res.data}`);
-            SendMsg(`${nickname} : ${res.message || res.data}；目前积分${points}个`, avatar_url);
+            SendMsg(`${nickname} : ${res.message || res.data}；目前积分${points}个`);
         } catch (e) {
             console.log(e);
         }
@@ -152,7 +148,6 @@ async function getCookie() {
               \/     \/           \/          \/     \/              
 */  
 /** --------------------------------辅助函数区域------------------------------------------- */
-
 //检查变量
 async function checkEnv() {
     if (userCookie) {
@@ -171,20 +166,18 @@ async function checkEnv() {
     }
     return console.log(`共找到${userCount}个账号`), true;//true == !0
 }
-
 // 随机整数生成
 function randomInt(min, max) {
     return Math.round(Math.random() * (max - min) + min);
 }
-
 // 发送消息
-async function SendMsg(message, avatar_url) {
+async function SendMsg(message) {
     if (!message) return;
     if (Notify > 0) {
         if ($.isNode()) {
             await notify.sendNotify($.name, message)
         } else {
-            $.msg($.name, '', message, { mediaUrl: avatar_url })
+            $.msg($.name, '', message)
         }
     } else {
         console.log(message)
