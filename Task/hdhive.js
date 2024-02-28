@@ -73,9 +73,7 @@ class UserInfo {
         //获取用户名作为标识键
         const options = {
             url: `https://www.hdhive.org/api/v1/user`,
-            headers: {
-                ...this.headers
-            }
+            headers: this.headers
         };
         //get方法
         return await this.Request(options, 'get');
@@ -87,20 +85,17 @@ class UserInfo {
                 //签到任务调用签到接口
                 url: `https://www.hdhive.org/api/v1/customer/user/daily-check-in`,
                 //请求头, 所有接口通用
-                headers: {
-                    ...this.headers
-                },
+                headers: this.headers,
                 body: ``
             };
-            //获取响应体
+            //post方法 签到
+            let res = await this.Request(options, 'post');
+            //获取标识和积分
             const response = await this.getRespBody() ?? {};
-            console.log(JSON.stringify(response));
             const nickname = response.data.nickname;
             const points = response.data.user_meta.points;
-            //post方法
-            let res = await this.Request(options, 'post');
             console.log(`${nickname} : ${res.message || res.data}`);
-            SendMsg(`${nickname} : ${res.message || res.data}\n目前积分${points}个`);
+            SendMsg(`${nickname} : ${res.message || res.data}；目前积分${points}个`);
         } catch (e) {
             console.log(e);
         }
