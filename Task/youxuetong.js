@@ -75,23 +75,28 @@ class UserInfo {
         });
     };
     async getSignList() {
-        const options = {
-            url: 'https://gwxg.xsyu.edu.cn/sign/mobile/receive/getMySignLogs?page=1&size=10',
-            headers: {
-                ...this.headers,
-                'Sec-Fetch-Dest' : `empty`,
-                'Accept-Encoding' : `gzip, deflate, br`,
-                'Sec-Fetch-Site' : `same-origin`,
-                'Sec-Fetch-Mode' : `cors`,
-                'Content-Type': 'application/json;charset=UTF-8',
-                'Cookie': this.cookie,
-                'Referer': 'https://gwxg.xsyu.edu.cn/h5/mobile/sign/index/message',
-                'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
-                'Accept': 'application/json, text/plain, */*'
-            }
-        };
-        //get方法
-        return await this.Request(options, 'get');
+        try {
+            const options = {
+                url: 'https://gwxg.xsyu.edu.cn/sign/mobile/receive/getMySignLogs?page=1&size=10',
+                headers: {
+                    ...this.headers,
+                    'Sec-Fetch-Dest' : `empty`,
+                    'Accept-Encoding' : `gzip, deflate, br`,
+                    'Sec-Fetch-Site' : `same-origin`,
+                    'Sec-Fetch-Mode' : `cors`,
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Cookie': this.cookie,
+                    'Referer': 'https://gwxg.xsyu.edu.cn/h5/mobile/sign/index/message',
+                    'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
+                    'Accept': 'application/json, text/plain, */*'
+                }
+            };
+            //get方法
+            return await this.Request(options, 'get');
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
     //签到函数
     async signIn() {
@@ -143,6 +148,7 @@ class UserInfo {
             SendMsg(`${name} : ${res.message || res.data}`);
         } catch (error) {
             console.log(error);
+            SendMsg(error);
             throw error;
         }
     }
