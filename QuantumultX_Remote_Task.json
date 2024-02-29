@@ -38,6 +38,14 @@
             "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
         },
         {
+            "config": "0 10 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/achived/10086/10086.js, tag=移动签到, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/10086.png, enabled=false",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
+            "config": "0 10 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/achived/10086/10086.fee.js, tag=移动话费查询, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/10086.png, enabled=false",
+            "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
+        },
+        {
             "config": "21 0 5 * * * https://gist.githubusercontent.com/Sliverkiss/e427dc3164d0c008f8d282f180d7fc00/raw/280945016940399a593955e40ce0d4591a5292c5/hsay.js, tag=沪上阿姨小程序签到,img-url=https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/icon/Hsay.png, enabled=false",
             "addons": "https://raw.githubusercontent.com/JasonChou0v0/scripts/main/QuantumultX_Remote_Cookie.conf,tag=Jason Script Gets Cookies"
         },
