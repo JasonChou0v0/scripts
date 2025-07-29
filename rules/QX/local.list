@@ -9,6 +9,6 @@ IP-CIDR, 192.0.0.0/24, direct
 IP-CIDR, 192.0.2.0/24, direct
 IP-CIDR, 192.168.0.0/16, direct
 IP-CIDR, 224.0.0.0/4, direct
-IP-CIDR6, ::1/128, direct
-IP-CIDR6, fc00::/7, direct
-IP-CIDR6, fe80::/10, direct
+IP6-CIDR, ::1/128, direct
+IP6-CIDR, fc00::/7, direct
+IP6-CIDR, fe80::/10, direct
